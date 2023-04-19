@@ -52,15 +52,5 @@ function encontrarAsignacionOptima(n, jobTimes, m) {
         counter+= asignacionOptima[j][i];
         cluster+= tarea;
     }
-    console.log(cluster+" Tiempo: "+counter);
+    console.log(cluster);
 }
-let random="";
-const max = 100;
-const min = 0;
-/*
-for (let j = 0; j < 5000; j++){
-    random+=Math.floor(Math.random()*max)+" ";
-}
-console.log(random);
-*/
-//console.log(asignacionOptima);
