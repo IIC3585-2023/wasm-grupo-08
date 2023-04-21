@@ -8,15 +8,24 @@ document.getElementById("submit").onclick = () => {
       "Clusters value ans task-times size needs to be of the same size."
     );
   }
-
+  //JS
   const tasksArray = Uint32Array(tasksTimes.split(" ").map((x) => parseInt(x)));
   const t0 = Date.now();
   const result = assignTasksToClustersH(tasks, tasksArray);
   const t1 = Date.now();
-  console.log("js heuristic:");
+  console.log(`Result: ${result}`);
   console.log((t1 - t0) / 1000);
+  // WASM
   const ptr = Module._malloc(tasksArray.byteLength);
   Module.HEAPU32.set(tasksArray, ptr >> 2);
+  const resultCpp = Module.ccall(
+    "heuristic",
+    "string",
+    ["number", "number", "number"],
+    [ptr, tasks, clusters]
+  );
+  Module._free(ptr);
+  console.log(`Result: ${resultCpp}`);
 };
 
 function assignTasksToClustersH(tasks, numClusters) {
@@ -40,14 +49,4 @@ function assignTasksToClustersH(tasks, numClusters) {
   const totalTime = Math.max(...completionTimes);
 
   return { clusterTasks, totalTime };
-}
-
-function callCppFunction() {
-  var result = Module.ccall(
-    "assignTasksToClustersH", // function name
-    "number", // return type (int)
-    ["number", "number"], // argument types (int, int)
-    [arg1, arg2]
-  ); // arguments
-  document.getElementById("result").textContent = "Result: " + result;
 }
