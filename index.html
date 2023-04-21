@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>WASM demo</title>
+  </head>
+  <body>
+    <div class="input">
+      <div>
+        <label class="form-label">Clusters</label>
+        <input type="number" value="2" id="clusters" />
+      </div>
+      <div>
+        <label class="form-label">Tasks</label>
+        <input type="number" value="5" id="tasks" />
+      </div>
+      <div>
+        <label class="form-label">Values</label>
+        <input type="text" value="1 2 3 4 5" id="time-tasks" />
+      </div>
+      <div>
+        <input type="submit" value="Submit" id="submit-button" />
+      </div>
+    </div>
+    <div class="benchmark-container">
+      <div class="benchmark js" id="js">
+        <div class="title">JavaScript</div>
+        <div class="value">-</div>
+      </div>
+      <div class="benchmark wasm" id="wasm">
+        <div class="title">WASM</div>
+        <div class="value">-</div>
+      </div>
+    </div>
+  </body>
+</html>
