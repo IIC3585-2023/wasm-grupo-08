@@ -1,6 +1,5 @@
 function assignTasksToClustersH(tasks, numClusters) {
   // Step 1: sort tasks in descending order of completion time
-  const start = performance.now();
   tasks.sort((a, b) => b - a);
 
   // Step 2: initialize array of completion times for each cluster
@@ -18,13 +17,11 @@ function assignTasksToClustersH(tasks, numClusters) {
 
   // Step 4: return results
   const totalTime = Math.max(...completionTimes);
-  const end = performance.now();
-  const duration = end - start;
-
-  return { clusterTasks, totalTime, duration };
+  return { clusterTasks, totalTime };
 }
-const tasks = [5, 3, 2, 4, 1];
-const numClusters = 3;
+
+const tasks = [30, 50, 10, 20, 90];
+const numClusters = 2;
 
 // Assign tasks to clusters
 const { clusterTasks, totalTime } = assignTasksToClustersH(tasks, numClusters);

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <sstream>
 #include <string>
+#include <numeric>
 using std::vector;
 using std::cout;
 using std::string;
@@ -28,11 +29,8 @@ string ClusterTasks_to_string(vector<vector<u32>> clusterTasks) {
   result += "]";
   return result;
 }
-
-
-
 extern "C" string heuristic(u32 *tasks, u32 num_tasks, u32 num_clusters) {
-  std::sort(tasks, tasks + num_tasks);
+  std::sort(tasks, tasks + num_tasks, std::greater<u32>());
 
   vector<u32> completionTimes(num_clusters, 0);
   vector<vector<u32>> clusterTasks(num_clusters);
@@ -43,23 +41,44 @@ extern "C" string heuristic(u32 *tasks, u32 num_tasks, u32 num_clusters) {
     clusterTasks[minCompletionTimeIndex].push_back(taskTime);
     completionTimes[minCompletionTimeIndex] += taskTime;
   }
-
-//   std::cout << "Cluster tasks: " << std::endl;
-//   for (const auto& cluster : clusterTasks) {
-//     std::cout << "  ";
-//     for (u32 taskTime : cluster) {
-//         std::cout << taskTime << " ";
-//     }
-//     std::cout << std::endl;
-//   }
   return ClusterTasks_to_string(clusterTasks);
 }
 
+extern "C" string encontrarAsignacionOptima(u32 *tasks, u32 num_tasks, u32 num_clusters) {
+    // Crear una matriz de dimensiones m x n para almacenar los tiempos de ejecución de cada trabajo en cada cluster
+    vector<vector<u32>> tiempos(num_clusters, vector<u32>(num_tasks, 0));
 
+    // Iterar sobre todos los trabajos
+    for (int i = 0; i < num_tasks; i++) {
+        int minTiempo = std::numeric_limits<u32>::max();
+        int mejorCluster = 0;
+
+        // Iterar sobre todos los clusters para encontrar el mejor cluster para el trabajo actual
+        for (int j = 0; j < num_clusters; j++) {
+            // Calcular el tiempo total de ejecución si se asigna el trabajo actual al cluster j
+            int tiempoTotal = std::accumulate(tiempos[j].begin(), tiempos[j].end(), 0) + tasks[i];
+
+            // Si el tiempo total es menor que el mínimo tiempo encontrado hasta ahora, actualizar el mínimo tiempo y el mejor cluster
+            if (tiempoTotal < minTiempo) {
+                minTiempo = tiempoTotal;
+                mejorCluster = j;
+            }
+        }
+
+        // Asignar el trabajo actual al mejor cluster encontrado
+        tiempos[mejorCluster][i] = tasks[i];
+    }
+
+    // Devolver la asignación de trabajos a clusters
+    return ClusterTasks_to_string(tiempos);
+}
 
 
 int main() {
-  u32 numbers[]{2, 2, 2};
-  auto result = heuristic(numbers, 3, 2);
-  cout << result;
+  u32 numbers[]{30, 50, 10, 20, 90};
+  auto result = heuristic(numbers, 5, 2);
+  auto result1 = encontrarAsignacionOptima(numbers, 5,2);
+  cout << result << "\n";
+  cout << result1 << "\n";
+  return 0;
 }
