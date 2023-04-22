@@ -1,5 +1,5 @@
 const Module = require("./module.js");
-document.getElementById("submit").onclick = () => {
+document.getElementById("submit-button").onclick = () => {
   const tasks = document.getElementById("tasks").value;
   const clusters = document.getElementById("clusters").value;
   const tasksTimes = document.getElementById("tasks-times").value;
