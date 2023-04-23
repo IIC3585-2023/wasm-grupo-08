@@ -47,14 +47,14 @@ Result assignTasksToClustersH(vector<Task> tasks, int numClusters) {
 
 int main() {
     int numTasks, numClusters;
-    cout << "Enter the number of tasks: ";
-    cin >> numTasks;
-    cout << "Enter the number of clusters: ";
-    cin >> numClusters;
+    std::cout << "Enter the number of tasks: "<< std::endl;
+    std::cin >> numTasks;
+    std::cout << "Enter the number of clusters: "<< std::endl;
+    std::cin >> numClusters;
 
     vector<Task> tasks(numTasks);
     for (int i = 0; i < numTasks; i++) {
-        cout << "Enter the completion time of task " << i + 1 << ": ";
+        cout << "Enter the completion time of task " << i + 1 << ": "<< std::endl;
         cin >> tasks[i].completionTime;
     }
 

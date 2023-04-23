@@ -6,6 +6,8 @@
 #include <sstream>
 #include <string>
 #include <numeric>
+#include <fstream>
+
 using std::vector;
 using std::cout;
 using std::string;
@@ -73,11 +75,28 @@ extern "C" string encontrarAsignacionOptima(u32 *tasks, u32 num_tasks, u32 num_c
     return ClusterTasks_to_string(tiempos);
 }
 
+extern "C" std::string Addx(int a, int b){
+  return "string";
+}
+extern "C" int main() {
 
-int main() {
   u32 numbers[]{30, 50, 10, 20, 90};
-  auto result = heuristic(numbers, 5, 2);
-  auto result1 = encontrarAsignacionOptima(numbers, 5,2);
+
+  int numTasks=5;
+  int numClusters=2;
+
+  /*
+  std::cout << "Enter the number of tasks: "<< std::endl;
+  std::cin >> numTasks;
+  std::cout << "Enter the number of clusters: "<< std::endl;
+  std::cin >> numClusters;
+
+  std::string xd;
+  std::cin >> xd;
+  std::cout << xd<< std::endl;
+*/
+  auto result = heuristic(numbers, numTasks,numClusters);
+  auto result1 = encontrarAsignacionOptima(numbers, numTasks,numClusters);
   cout << result << "\n";
   cout << result1 << "\n";
   return 0;
