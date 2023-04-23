@@ -44,6 +44,8 @@ document.getElementById("submit-button").onclick = () => {
     let t1 = Date.now();
     console.log((t1 - t0) / 1000); //devolver esta wea (esta en segundos)
     console.log("Cluster assignments:", clusterTasks); //devolver esta wea
+    document.getElementById("JSValue").textContent = (t1-t0)/1000 + " segundos";
+
     //C++
     const tasksArray = new Uint32Array(tasks);
     factory()
@@ -61,6 +63,7 @@ document.getElementById("submit-button").onclick = () => {
     console.log(`Result: ${resultCpp}`);
     let t1 = Date.now();
     console.log((t1 - t0) / 1000);
+    document.getElementById("wasmValue").textContent = (t1-t0)/1000 + " segundos";
   })
   .catch((e) => {
     console.log(e);
