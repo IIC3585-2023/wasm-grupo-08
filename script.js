@@ -26,31 +26,22 @@ function assignTasksToClustersH(tasks, numClusters) {
   return { clusterTasks, totalTime };
 }
 
-const tasks = [30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90];
-const numClusters = 2;
 document.getElementById("submit-button").onclick = () => {
-  const inputFile = document.getElementById("inputFile").value;
-  /*
-    if (inputFile !== tasksTimes.length) {
-    throw new Error(
-      "Invalid Input File"
-    );
-  */
-    //Reading input file
-    //const content = fs.readFileSync("inputFile", {encoding:'utf8', flag:'r'});
-    //const contentAsList = content.split(" ");
-    //const numClusters = Number(contentAsList[1]); //workers
-    //const tasks = contentAsList.slice(2).map(Number);
+  const taskAmount = document.getElementById("taskAmount").value;
+  const clusterAmount = document.getElementById("clusterAmount").value;
+
+  const taskArray = Array.from({length: taskAmount}, () => Math.floor(Math.random() * 100));
+
     //JS
     let t0 = Date.now();
-    const { clusterTasks, totalTime } = assignTasksToClustersH(tasks, numClusters);
+    const { clusterTasks, totalTime } = assignTasksToClustersH(taskArray, clusterAmount);
     let t1 = Date.now();
     console.log((t1 - t0) / 1000); //devolver esta wea (esta en segundos)
     console.log("Cluster assignments:", clusterTasks); //devolver esta wea
     document.getElementById("JSValue").textContent = (t1-t0)/1000 + " segundos";
 
     //C++
-    const tasksArray = new Uint32Array(tasks);
+    const tasksArray = new Uint32Array(taskArray);
     Module()
     .then((instance) => {
     let t0 = Date.now();
@@ -60,7 +51,7 @@ document.getElementById("submit-button").onclick = () => {
       "heuristic",
       "string",
       ["number", "number", "number"],
-      [ptr, tasksArray.length, numClusters]
+      [ptr, tasksArray.length, clusterAmount]
     );
     instance._free(ptr);
     console.log(`Result: ${resultCpp}`);

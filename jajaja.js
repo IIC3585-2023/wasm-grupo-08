@@ -1,5 +1,6 @@
-var factory = require("./owo.js");
-const fs= require('fs');
+import Module from './owo.js';
+const mymod = Module();
+import * as fs from 'fs';
 
 function assignTasksToClustersH(tasks, numClusters) {
   // Step 1: sort tasks in descending order of completion time
@@ -87,7 +88,7 @@ console.log("Cluster assignments:", clusterTasks);
 
 
 const tasksArray = new Uint32Array(tasks);
-factory()
+Module()
   .then((instance) => {
     let t0 = Date.now();
     const ptr = instance._malloc(tasksArray.byteLength);
