@@ -5,13 +5,10 @@ const mymod = Module();
 //git
 
 function assignTasksToClustersH(tasks, numClusters) {
-  // Step 1: sort tasks in descending order of completion time
   tasks.sort((a, b) => b - a);
 
-  // Step 2: initialize array of completion times for each cluster
   const completionTimes = new Array(numClusters).fill(0);
 
-  // Step 3: assign tasks to clusters
   const clusterTasks = new Array(numClusters).fill().map(() => []);
   for (const task of tasks) {
     const minCompletionTimeIndex = completionTimes.indexOf(
@@ -21,7 +18,6 @@ function assignTasksToClustersH(tasks, numClusters) {
     completionTimes[minCompletionTimeIndex] += task;
   }
 
-  // Step 4: return results
   const totalTime = Math.max(...completionTimes);
   return { clusterTasks, totalTime };
 }
@@ -29,10 +25,7 @@ function assignTasksToClustersH(tasks, numClusters) {
 document.getElementById("submit-button").onclick = () => {
   const taskAmount = document.getElementById("taskAmount").value;
   const numClusters = Number(document.getElementById("clusterAmount").value);
-  //const numClusters = 2;
   const tasks = Array.from({length: taskAmount}, () => Math.floor(Math.random() * 100));
-  //const tasks = [30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90];
-  console.log("ARRAY: ", tasks);
 
     //JS
     let t0 = Date.now();
