@@ -26,8 +26,8 @@ function assignTasksToClustersH(tasks, numClusters) {
   return { clusterTasks, totalTime };
 }
 
-const tasks = [30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90];
-const numClusters = 2;
+//const tasks = [30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90];
+//const numClusters = 2;
 document.getElementById("submit-button").onclick = () => {
   const inputFile = document.getElementById("inputFile").value;
   /*
@@ -38,9 +38,10 @@ document.getElementById("submit-button").onclick = () => {
   */
     //Reading input file
     //const content = fs.readFileSync("inputFile", {encoding:'utf8', flag:'r'});
-    //const contentAsList = content.split(" ");
-    //const numClusters = Number(contentAsList[1]); //workers
-    //const tasks = contentAsList.slice(2).map(Number);
+    const contentAsList = inputFile.split(" ");
+    console.log(contentAsList);
+    const numClusters = Number(contentAsList[1]); //workers
+    const tasks = contentAsList.slice(2).map(Number);
     //JS
     let t0 = Date.now();
     const { clusterTasks, totalTime } = assignTasksToClustersH(tasks, numClusters);
