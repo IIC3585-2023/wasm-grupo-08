@@ -1,5 +1,8 @@
-var factory = require("./owo.js");
-const fs= require('fs');
+//var factory = require("./owo.js");
+import Module from './owo.js';
+const mymod = Module();
+//const fs= require('fs');
+//import * as fs from 'fs';
 
 function assignTasksToClustersH(tasks, numClusters) {
   // Step 1: sort tasks in descending order of completion time
@@ -23,8 +26,8 @@ function assignTasksToClustersH(tasks, numClusters) {
   return { clusterTasks, totalTime };
 }
 
-//const tasks = [30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90];
-//const numClusters = 2;
+const tasks = [30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90];
+const numClusters = 2;
 document.getElementById("submit-button").onclick = () => {
   const inputFile = document.getElementById("inputFile").value;
   /*
@@ -34,10 +37,10 @@ document.getElementById("submit-button").onclick = () => {
     );
   */
     //Reading input file
-    const content = fs.readFileSync("inputFile", {encoding:'utf8', flag:'r'});
-    const contentAsList = content.split(" ");
-    const numClusters = Number(contentAsList[1]); //workers
-    const tasks = contentAsList.slice(2).map(Number);
+    //const content = fs.readFileSync("inputFile", {encoding:'utf8', flag:'r'});
+    //const contentAsList = content.split(" ");
+    //const numClusters = Number(contentAsList[1]); //workers
+    //const tasks = contentAsList.slice(2).map(Number);
     //JS
     let t0 = Date.now();
     const { clusterTasks, totalTime } = assignTasksToClustersH(tasks, numClusters);
@@ -48,7 +51,7 @@ document.getElementById("submit-button").onclick = () => {
 
     //C++
     const tasksArray = new Uint32Array(tasks);
-    factory()
+    Module()
     .then((instance) => {
     let t0 = Date.now();
     const ptr = instance._malloc(tasksArray.byteLength);
