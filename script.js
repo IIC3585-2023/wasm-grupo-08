@@ -36,7 +36,7 @@ document.getElementById("submit-button").onclick = () => {
 
     //JS
     let t0 = Date.now();
-    const { clusterTasks, totalTime } = assignTasksToClustersH(tasks, numClusters);
+    const clusterTasks = assignTasksToClustersH(tasks, numClusters);
     let t1 = Date.now();
     console.log((t1 - t0) / 1000); //devolver esta wea (esta en segundos)
     console.log("Cluster assignments:", clusterTasks); //devolver esta wea
