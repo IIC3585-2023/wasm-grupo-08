@@ -1,0 +1,35 @@
+.input {
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.benchmark-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.benchmark {
+  text-align: center;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.benchmark .title {
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.benchmark .value {
+  font-size: 36px;
+}
