@@ -2,7 +2,7 @@
 import Module from './owo.js';
 const mymod = Module();
 //const fs= require('fs');
-//import * as fs from 'fs';
+//git
 
 function assignTasksToClustersH(tasks, numClusters) {
   // Step 1: sort tasks in descending order of completion time
@@ -28,20 +28,22 @@ function assignTasksToClustersH(tasks, numClusters) {
 
 document.getElementById("submit-button").onclick = () => {
   const taskAmount = document.getElementById("taskAmount").value;
-  const clusterAmount = document.getElementById("clusterAmount").value;
-
-  const taskArray = Array.from({length: taskAmount}, () => Math.floor(Math.random() * 100));
+  const numClusters = Number(document.getElementById("clusterAmount").value);
+  //const numClusters = 2;
+  const tasks = Array.from({length: taskAmount}, () => Math.floor(Math.random() * 100));
+  //const tasks = [30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90,30, 50, 10, 20, 90];
+  console.log("ARRAY: ", tasks);
 
     //JS
     let t0 = Date.now();
-    const { clusterTasks, totalTime } = assignTasksToClustersH(taskArray, clusterAmount);
+    const { clusterTasks, totalTime } = assignTasksToClustersH(tasks, numClusters);
     let t1 = Date.now();
     console.log((t1 - t0) / 1000); //devolver esta wea (esta en segundos)
     console.log("Cluster assignments:", clusterTasks); //devolver esta wea
     document.getElementById("JSValue").textContent = (t1-t0)/1000 + " segundos";
 
     //C++
-    const tasksArray = new Uint32Array(taskArray);
+    const tasksArray = new Uint32Array(tasks);
     Module()
     .then((instance) => {
     let t0 = Date.now();
@@ -51,11 +53,11 @@ document.getElementById("submit-button").onclick = () => {
       "heuristic",
       "string",
       ["number", "number", "number"],
-      [ptr, tasksArray.length, clusterAmount]
+      [ptr, tasksArray.length, numClusters]
     );
     instance._free(ptr);
-    console.log(`Result: ${resultCpp}`);
     let t1 = Date.now();
+    console.log(`Result: ${resultCpp}`);
     console.log((t1 - t0) / 1000);
     document.getElementById("wasmValue").textContent = (t1-t0)/1000 + " segundos";
   })
